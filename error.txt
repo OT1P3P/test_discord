@@ -1,0 +1,17 @@
+Building all executables for Glados once. After a successful build of all of them, only specified executables will be rebuilt.
+Glados> configure (lib + exe)
+Configuring Glados-0.1.0.0...
+Glados> build (lib + exe)
+Preprocessing library for Glados-0.1.0.0..
+Building library for Glados-0.1.0.0..
+[1 of 2] Compiling Lib
+[2 of 2] Compiling Paths_Glados
+Preprocessing executable 'Glados-exe' for Glados-0.1.0.0..
+Building executable 'Glados-exe' for Glados-0.1.0.0..
+[1 of 2] Compiling Main
+[2 of 2] Compiling Paths_Glados
+Linking .stack-work/dist/x86_64-linux-tinfo6/Cabal-3.2.1.0/build/Glados-exe/Glados-exe ...
+Glados> copy/register
+Installing library in /home/bromain/tek3/B-FUN-500-MAR-5-1-glados-nawelle.polin/.stack-work/install/x86_64-linux-tinfo6/707453bcdcc05c841976308071d71e5036abb7b0b150d10d275683c957420a1c/8.10.4/lib/x86_64-linux-ghc-8.10.4/Glados-0.1.0.0-JBJCLNUuffw2p327EbZ9wS
+Installing executable Glados-exe in /home/bromain/tek3/B-FUN-500-MAR-5-1-glados-nawelle.polin/.stack-work/install/x86_64-linux-tinfo6/707453bcdcc05c841976308071d71e5036abb7b0b150d10d275683c957420a1c/8.10.4/bin
+Registering library for Glados-0.1.0.0..

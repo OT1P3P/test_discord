@@ -1,0 +1,6 @@
+(define def_sqrt (sqrt 5))
+(define def_mod (mod 11 5))
+(define def_^ (^ 12 1))
+def_sqrt
+def_mod
+def_^

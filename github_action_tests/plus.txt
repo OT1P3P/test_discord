@@ -1,0 +1,7 @@
+(define plus_one (lambda (n)
+    (+ n 1)))
+
+(define plus (lambda (a b)
+    (+ (plus_one a) (plus_one b))))
+
+(plus 1 2)

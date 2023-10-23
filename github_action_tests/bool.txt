@@ -1,0 +1,6 @@
+(define true #t)
+(define false #f)
+true
+false
+(if (eq? true false) (define bool_if #t) (define bool_if #f))
+bool_if

@@ -1,0 +1,7 @@
+(define a 1)
+(define b 12)
+(if (eq? a b) (a) (b))
+(if (> a b) (a) (b))
+(if (< a b) (a) (b))
+(if (eq? a a) (a) (b))
+(if (neq? a a) (a) (b))

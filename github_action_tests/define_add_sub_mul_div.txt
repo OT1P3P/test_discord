@@ -1,0 +1,8 @@
+(define var_add (+ 4 3))
+(define var_sub (- 4 3))
+(define var_mul (* 4 3))
+(define var_div (div 50 10))
+var_add
+var_sub
+var_mul
+var_div

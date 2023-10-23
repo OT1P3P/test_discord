@@ -1,0 +1,9 @@
+(define plus_one (lambda (n)
+    (+ n 1)))
+
+(display "Résultat pour (plus_one 5) : ")
+(display (plus_one 5)) ;
+
+(define x 1)
+(display "Valeur de x : ")
+(display x) ;
