@@ -14,7 +14,7 @@ jobs:
 
       - name: Notify on Discord
         if: always()  # Cette étape s'exécute toujours, même en cas d'échec précédent
-        uses: Ilshidur/action-discord@v1
+        uses: Ilshidur/action-discord@v2.0.0
         with:
           args: success
         env:
