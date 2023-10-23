@@ -21,6 +21,7 @@ jobs:
           # Verify installations
           ghc --version
           stack --version
+
       - name: pwd
         run: pwd
 
@@ -49,6 +50,7 @@ jobs:
             echo "add_sub_mul_div.txt test failed."
             exit 1
           fi
+
       - name: test add_sub_mul_div_with_define.txt
         run: |
           output=$(./glados < ./github_action_tests/add_sub_mul_div_with_define.txt)
@@ -64,6 +66,7 @@ jobs:
             echo " test failed."
             exit 1
           fi
+
       - name: test define_add_sub_mul_div.txt
         run: |
           output=$(./glados < ./github_action_tests/define_add_sub_mul_div.txt)
@@ -80,6 +83,7 @@ jobs:
             echo "add_sub_mul_div.txt test failed."
             exit 1
           fi
+
       - name: test define_mod_sqrt_^.txt
         run: |
           output=$(./glados < ./github_action_tests/define_mod_sqrt_^.txt)
@@ -94,6 +98,7 @@ jobs:
             echo "test failed."
             exit 1
           fi
+
       - name: test if.txt
         run: |
           output=$(./glados < ./github_action_tests/if.txt)
@@ -110,6 +115,7 @@ jobs:
             echo "test failed."
             exit 1
           fi
+
       - name: test mod_sqrt_^.txt
         run: |
           output=$(./glados < ./github_action_tests/mod_sqrt_^.txt)
@@ -124,6 +130,7 @@ jobs:
             echo "test failed."
             exit 1
           fi
+
       - name: test mod_sqrt_^_with_define.txt
         run: |
           output=$(./glados < ./github_action_tests/mod_sqrt_^_with_define.txt)
@@ -138,7 +145,7 @@ jobs:
             echo "test failed."
             exit 1
           fi
-          
+
       - name: test bool.txt
         run: |
           output=$(./glados < ./github_action_tests/bool.txt)
@@ -157,3 +164,12 @@ jobs:
       - name: Clear Cache
         run: |
           stack clean
+
+      # Ajoutez l'étape de notification Discord ici
+      - name: Notify on Discord
+        if: always()  # Cette étape s'exécute toujours, même en cas d'échec précédent
+        uses: Ilshidur/action-discord@v2
+        with:
+          args: success
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
