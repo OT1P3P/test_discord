@@ -1,0 +1,159 @@
+name: github_actions_Glados
+
+on: push
+
+jobs:
+  test:
+    name: test_the_code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install GHC and Haskell Stack
+        run: |
+          # Update the package list
+          sudo apt-get update -y
+          # Install GHC (Glasgow Haskell Compiler)
+          sudo apt-get install ghc -y
+          # Install Haskell Stack
+          sudo apt-get install haskell-stack -y
+          # Verify installations
+          ghc --version
+          stack --version
+      - name: pwd
+        run: pwd
+
+      - name: ls
+        run: ls
+
+      - name: stack upgrade
+        run: sudo stack upgrade --force-download
+
+      - name: build the project 
+        run: make re
+
+      - name: test add_sub_mul_div.txt
+        run: |
+          output=$(./glados < ./github_action_tests/add_sub_mul_div.txt)
+          echo "$output"  # Display the output for debugging (can be removed later)
+          lines=($output)
+          # Customize the validation logic for add_sub_mul_div.txt
+          if [[ "${lines[0]}" == "7" && "${lines[1]}" == "1" && "${lines[2]}" == "12" && "${lines[3]}" == "5" ]]; then
+            echo "add_sub_mul_div.txt test passed."
+          else
+            echo "${lines[0]} = 7"
+            echo "${lines[1]} = 1"
+            echo "${lines[2]} = 12"
+            echo "${lines[3]} = 5"
+            echo "add_sub_mul_div.txt test failed."
+            exit 1
+          fi
+      - name: test add_sub_mul_div_with_define.txt
+        run: |
+          output=$(./glados < ./github_action_tests/add_sub_mul_div_with_define.txt)
+          echo "$output"  # Display the output for debugging (can be removed later)
+          lines=($output)
+          if [[ "${lines[0]}" == "19" && "${lines[1]}" == "-5" && "${lines[2]}" == "84" && "${lines[3]}" == "0" ]]; then
+            echo " test passed."
+          else
+            echo "${lines[0]} = 19"
+            echo "${lines[1]} = -5"
+            echo "${lines[2]} = 84"
+            echo "${lines[3]} = 0"
+            echo " test failed."
+            exit 1
+          fi
+      - name: test define_add_sub_mul_div.txt
+        run: |
+          output=$(./glados < ./github_action_tests/define_add_sub_mul_div.txt)
+          echo "$output"  # Display the output for debugging (can be removed later)
+          lines=($output)
+          
+          if [[ "${lines[0]}" == "7" && "${lines[1]}" == "1" && "${lines[2]}" == "12" && "${lines[3]}" == "5" ]]; then
+            echo "add_sub_mul_div.txt test passed."
+          else
+            echo "${lines[0]} = 7"
+            echo "${lines[1]} = 1"
+            echo "${lines[2]} = 12"
+            echo "${lines[3]} = 5"
+            echo "add_sub_mul_div.txt test failed."
+            exit 1
+          fi
+      - name: test define_mod_sqrt_^.txt
+        run: |
+          output=$(./glados < ./github_action_tests/define_mod_sqrt_^.txt)
+          echo "$output"  # Display the output for debugging (can be removed later)
+          lines=($output)
+          if [[ "${lines[0]}" == "2" && "${lines[1]}" == "1" && "${lines[2]}" == "12" ]]; then
+            echo "test passed."
+          else
+            echo "${lines[0]} = 2"
+            echo "${lines[1]} = 1"
+            echo "${lines[2]} = 12"
+            echo "test failed."
+            exit 1
+          fi
+      - name: test if.txt
+        run: |
+          output=$(./glados < ./github_action_tests/if.txt)
+          echo "$output"  # Display the output for debugging (can be removed later)
+          lines=($output)
+          if [[ "${lines[0]}" == "12" && "${lines[1]}" == "12" && "${lines[2]}" == "1" && "${lines[3]}" == "1" && "${lines[4]}" == "1" ]]; then
+            echo "test passed."
+          else
+            echo "${lines[0]} = 12"
+            echo "${lines[1]} = 12"
+            echo "${lines[2]} = 1"
+            echo "${lines[3]} = 1"
+            echo "${lines[4]} = 1"
+            echo "test failed."
+            exit 1
+          fi
+      - name: test mod_sqrt_^.txt
+        run: |
+          output=$(./glados < ./github_action_tests/mod_sqrt_^.txt)
+          echo "$output"  # Display the output for debugging (can be removed later)
+          lines=($output)
+          if [[ "${lines[0]}" == "2" && "${lines[1]}" == "1" && "${lines[2]}" == "144" ]]; then
+            echo "test passed."
+          else
+            echo "${lines[0]} = 2"
+            echo "${lines[1]} = 1"
+            echo "${lines[2]} = 144"
+            echo "test failed."
+            exit 1
+          fi
+      - name: test mod_sqrt_^_with_define.txt
+        run: |
+          output=$(./glados < ./github_action_tests/mod_sqrt_^_with_define.txt)
+          echo "$output"  # Display the output for debugging (can be removed later)
+          lines=($output)
+          if [[ "${lines[0]}" == "3" && "${lines[1]}" == "0" && "${lines[2]}" == "144" ]]; then
+            echo "test passed."
+          else
+            echo "${lines[0]} = 3"
+            echo "${lines[1]} = 0"
+            echo "${lines[2]} = 144"
+            echo "test failed."
+            exit 1
+          fi
+          
+      - name: test bool.txt
+        run: |
+          output=$(./glados < ./github_action_tests/bool.txt)
+          echo "$output"  # Display the output for debugging (can be removed later)
+          lines=($output)
+          if [[ "${lines[1]}" == "True" && "${lines[3]}" == "False" && "${lines[5]}" == "True" ]]; then
+            echo "test passed."
+          else
+            echo "${lines[1]} = True"
+            echo "${lines[3]} = False"
+            echo "${lines[5]} = True"
+            echo " test failed."
+            exit 1
+          fi
+
+      - name: Clear Cache
+        run: |
+          stack clean
